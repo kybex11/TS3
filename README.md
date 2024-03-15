@@ -1,75 +1,42 @@
-# Nuxt 3 Minimal Starter
+# 3D Game Engine on Typescript + ThreeTS + Vue + Nuxt
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+3D Engine with Nodes, Parsing, Plugins, e.t.c
 
-## Setup
+#Setup
 
-Make sure to install the dependencies:
+Make sure to install the dependencies
+```
+npm i
 
-```bash
-# npm
-npm install
+pnpm i
 
-# pnpm
-pnpm install
+yarn i
 
-# yarn
-yarn install
-
-# bun
-bun install
+bun i
 ```
 
-## Development Server
+# Develop
 
-Start the development server on `http://localhost:3000`:
+http://localhost:3000
 
-```bash
-# npm
+```
 npm run dev
 
-# pnpm
 pnpm run dev
 
-# yarn
 yarn dev
 
-# bun
 bun run dev
 ```
 
-## Production
+# Build
 
-Build the application for production:
-
-```bash
-# npm
+```
 npm run build
 
-# pnpm
 pnpm run build
 
-# yarn
 yarn build
 
-# bun
-bun run build
+bun run builds
 ```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
