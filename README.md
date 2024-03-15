@@ -38,5 +38,5 @@ pnpm run build
 
 yarn build
 
-bun run builds
+bun run build
 ```
