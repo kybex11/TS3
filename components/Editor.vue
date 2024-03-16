@@ -24,7 +24,4 @@
     justify-content: center;
     display: flex;
 }
-body {
-    background-color: #242424;
-}
 </style>
