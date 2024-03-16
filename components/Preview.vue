@@ -1,6 +1,15 @@
 <template>
-    
+    <div class="preview-module-view" ref="preview_module_view"></div>
 </template>
+
+<style>
+.preview-module-view {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+</style>
 
 <script>
 import * as THREE from 'three';
@@ -16,21 +25,18 @@ export default {
         };
     },
     mounted() {
-        let width = window.innerWidth, height = window.innerHeight;
-
-        function resize() {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            renderer.setSize(width, height);
-            camera.aspect = width / height;
-            camera.updateProjectionMatrix()
-        }
-        window.addEventListener('resize', resize);
+        let view = this.$refs.preview_module_view;
+        let width = 900, height = 600;
 
         const camera = new THREE.PerspectiveCamera(70, width / height, 0.01, 10);
         camera.position.z = 1;
 
         const scene = new THREE.Scene();
+
+        const background_loader = new THREE.TextureLoader();
+        background_loader.load('/scene_background.jpg', function(tex) {
+            scene.background = tex;
+        })
 
         const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2);
         const material = new THREE.MeshNormalMaterial();
@@ -40,7 +46,9 @@ export default {
 
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(width, height);
-        document.body.appendChild(renderer.domElement);
+        if (view) {
+            view.appendChild(renderer.domElement);
+        }
 
         const onDocumentMouseDown = (event) => {
             this.isDragging = true;
@@ -54,8 +62,8 @@ export default {
                 const deltaY = event.clientY - this.previousMousePosition.y;
 
                 const rotationSpeed = 0.005;
-                mesh.rotation.y += deltaX * rotationSpeed;
-                mesh.rotation.x += deltaY * rotationSpeed;
+                camera.rotation.y += deltaX * rotationSpeed;
+                camera.rotation.x += deltaY * rotationSpeed;
 
                 this.previousMousePosition.x = event.clientX;
                 this.previousMousePosition.y = event.clientY;
@@ -67,6 +75,29 @@ export default {
         const onDocumentMouseUp = () => {
             this.isDragging = false;
         };
+
+        const onDocumentKeyDown = (e) => {
+            if (e.key === "W" || e.key === "w" || e.key === "ц" || e.key === "Ц") {
+                camera.position.z -= 0.1;
+            }
+            if (e.key === "S" || e.key === "s" || e.key === "ы" || e.key === "ы") {
+                camera.position.z += 0.1;
+            }
+            if (e.key === "A" || e.key === "a" || e.key === "ф" || e.key === "ф") {
+                camera.position.x -= 0.1;
+            }
+            if (e.key === "D" || e.key === "d" || e.key === "в" || e.key === "в") {
+                camera.position.x += 0.1;
+            }
+            if (e.key === " ") {
+                camera.position.y += 0.1;
+            }
+            if (e.key === "Shift") {
+                camera.position.y -= 0.1;
+            }
+        }
+
+        document.addEventListener('keydown', onDocumentKeyDown, false );
 
         document.addEventListener('mousedown', onDocumentMouseDown, false);
         document.addEventListener('mousemove', onDocumentMouseMove, false);
