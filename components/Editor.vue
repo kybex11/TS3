@@ -4,10 +4,10 @@
             <div class="navbar-container-elements">
                 <h3>TS3 Editor</h3>
                 <div class="navbar-container-elements-right">
-                    <h3>Session</h3>
+                    <button>Session</button>
                 </div>
                 <div class="navbar-container-elements-right">
-                    <h3>Edit</h3>
+                    <button> Edit</button>
                 </div>
             </div>
         </div>
@@ -27,7 +27,27 @@
 .navbar-container-elements {
     display: flex;
 }
+.navbar-container-elements button {
+    border: none;
+    background: none;
+    color: white;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    cursor: pointer;
+    font-size: 1.3rem;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    padding-top: 15px;
+}
+
+.navbar-container-elements h3 {
+    padding-top: 15px;
+}
+
 .navbar-container {
+    -webkit-user-select: none;
+    user-select: none;
     top: 0;
     left: 0;
     position: fixed;
