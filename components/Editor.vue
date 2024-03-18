@@ -1,7 +1,15 @@
 <template>
     <div class="firewall_container">
         <div class="navbar-container">
-            <h3>TS3 Editor</h3>
+            <div class="navbar-container-elements">
+                <h3>TS3 Editor</h3>
+                <div class="navbar-container-elements-right">
+                    <h3>Session</h3>
+                </div>
+                <div class="navbar-container-elements-right">
+                    <h3>Edit</h3>
+                </div>
+            </div>
         </div>
         <div class="container">
             <div class="elements-container">
@@ -13,6 +21,12 @@
     </div>
 </template>
 <style>
+.navbar-container-elements-right {
+    padding-left: 20px;
+}
+.navbar-container-elements {
+    display: flex;
+}
 .navbar-container {
     top: 0;
     left: 0;
