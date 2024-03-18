@@ -1,21 +1,38 @@
 <template>
-    <div class="container">
-        <div class="elements-container">
-            <h1>Inspect</h1>
+    <div class="firewall_container">
+        <div class="navbar-container">
+            <h3>TS3 Editor</h3>
         </div>
-        <div class="preview-container">
-            <Preview />
+        <div class="container">
+            <div class="elements-container">
+            </div>
+            <div class="preview-container">
+                <div class="preview-module-view" ref="preview_module_view" tabindex="0"></div>
+            </div>
         </div>
-
     </div>
 </template>
 <style>
+.navbar-container {
+    top: 0;
+    left: 0;
+    position: fixed;
+    color: white;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    width: 100%;
+    height: 50px;
+    padding-left: 10px;
+    background-color: black;
+}
 .container {
     display: flex;
     height: 100%;
+    padding-top: 50px;
 }
 .elements-container {
     text-align: left;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .preview-container {
@@ -24,4 +41,118 @@
     justify-content: center;
     display: flex;
 }
+.preview-module-view {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    border: none;
+}
 </style>
+
+<script>
+import * as THREE from 'three';
+
+export default {
+    data() {
+        return {
+            isDragging: false,
+            previousMousePosition: {
+                x: 0,
+                y: 0
+            },
+        };
+    },
+    mounted() {
+        let view = this.$refs.preview_module_view;
+        let width = 900, height = 600;
+
+        const camera = new THREE.PerspectiveCamera(70, width / height, 0.01, 10);
+        camera.position.z = 1;
+
+        const scene = new THREE.Scene();
+
+        const background_loader = new THREE.TextureLoader();
+        background_loader.load('/scene_background.jpg', function(tex) {
+            scene.background = tex;
+        })
+
+        const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+        const material = new THREE.MeshNormalMaterial();
+
+        const mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(width, height);
+        if (view) {
+            view.appendChild(renderer.domElement);
+        }
+
+        const onDocumentMouseDown = (event) => {
+            this.isDragging = true;
+            this.previousMousePosition.x = event.clientX;
+            this.previousMousePosition.y = event.clientY;
+        };
+
+        const onDocumentMouseMove = (event) => {
+            if (this.isDragging) {
+                const deltaX = event.clientX - this.previousMousePosition.x;
+                const deltaY = event.clientY - this.previousMousePosition.y;
+
+                const rotationSpeed = 0.005;
+                camera.rotation.y += deltaX * rotationSpeed;
+                camera.rotation.x += deltaY * rotationSpeed;
+
+                this.previousMousePosition.x = event.clientX;
+                this.previousMousePosition.y = event.clientY;
+
+                renderer.render(scene, camera);
+            }
+        };
+
+        const onDocumentMouseUp = () => {
+            this.isDragging = false;
+        };
+
+        const onDocumentKeyDown = (e) => {
+            if (e.key === "W" || e.key === "w" || e.key === "ц" || e.key === "Ц") {
+                camera.position.z -= 0.1;
+            }
+            if (e.key === "S" || e.key === "s" || e.key === "ы" || e.key === "ы") {
+                camera.position.z += 0.1;
+            }
+            if (e.key === "A" || e.key === "a" || e.key === "ф" || e.key === "ф") {
+                camera.position.x -= 0.1;
+            }
+            if (e.key === "D" || e.key === "d" || e.key === "в" || e.key === "в") {
+                camera.position.x += 0.1;
+            }
+            if (e.key === " ") {
+                camera.position.y += 0.1;
+            }
+            if (e.key === "Shift") {
+                camera.position.y -= 0.1;
+            }
+        }
+
+        if (view instanceof HTMLElement) {
+            view.addEventListener('keydown', onDocumentKeyDown, false);
+
+            view.addEventListener('mousedown', onDocumentMouseDown, false);
+            view.addEventListener('mousemove', onDocumentMouseMove, false);
+            view.addEventListener('mouseup', onDocumentMouseUp, false);
+        }
+
+        const animate = () => {
+            requestAnimationFrame(animate);
+            if (!this.isDragging) {
+                renderer.render(scene, camera);
+            }
+        };
+
+        animate();
+    }
+}
+</script>
