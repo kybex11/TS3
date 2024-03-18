@@ -41,10 +41,6 @@
     padding-top: 15px;
 }
 
-.navbar-container-elements h3 {
-    padding-top: 15px;
-}
-
 .navbar-container {
     -webkit-user-select: none;
     user-select: none;
