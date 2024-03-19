@@ -1,10 +1,10 @@
 <template>
-    <div class="firewall_container">
+    <div class="firewall_container" ref="background">
         <div class="navbar-container">
             <div class="navbar-container-elements">
                 <h3>TS3 Editor</h3>
                 <div class="navbar-container-elements-right">
-                    <button>Session</button>
+                    <button @click="toggleSessionsButton">Session</button>
                 </div>
                 <div class="navbar-container-elements-right">
                     <button> Edit</button>
@@ -18,9 +18,26 @@
                 <div class="preview-module-view" ref="preview_module_view" tabindex="0"></div>
             </div>
         </div>
+        <div class="popup-sessions-menu" v-if="isSessionToggleOpen">
+            <button @click="toggleSessionsButton">Close</button>
+        </div>
     </div>
 </template>
 <style>
+.blur > :not(.popup-sessions-menu) {
+    filter: blur(5px);
+}
+.popup-sessions-menu {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
 .navbar-container-elements-right {
     padding-left: 20px;
 }
@@ -92,7 +109,19 @@ export default {
                 x: 0,
                 y: 0
             },
+            isSessionToggleOpen: false,
         };
+    },
+    methods: {
+        toggleSessionsButton() {
+            this.isSessionToggleOpen = !this.isSessionToggleOpen;
+
+            if (this.isSessionToggleOpen) {
+                this.$refs.background.classList.add('blur');
+            } else {
+                this.$refs.background.classList.remove('blur');
+            }
+        }
     },
     mounted() {
         let view = this.$refs.preview_module_view;
