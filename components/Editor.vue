@@ -1,5 +1,6 @@
 <template>
     <div class="firewall_container" ref="background">
+        <div class="overlay" v-if="isSessionToggleOpen"></div>
         <div class="navbar-container">
             <div class="navbar-container-elements">
                 <h3>TS3 Editor</h3>
@@ -24,6 +25,16 @@
     </div>
 </template>
 <style>
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 99;
+}
+
 .blur > :not(.popup-sessions-menu) {
     filter: blur(5px);
 }
