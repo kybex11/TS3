@@ -2,7 +2,7 @@
 
 3D Engine with Nodes, Parsing, Plugins, e.t.c
 
-#Setup
+# Setup
 
 Make sure to install the dependencies
 ```
