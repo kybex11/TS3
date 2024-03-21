@@ -1,6 +1,6 @@
 <template>
     <div class="firewall_container" ref="background">
-        <div class="overlay" v-if="isSessionToggleOpen"></div>
+        <div class="overlay" v-if="isSessionToggleOpen || isEditToggleOpen"></div>
         <div class="navbar-container">
             <div class="navbar-container-elements">
                 <h3>TS3 Editor</h3>
@@ -8,7 +8,7 @@
                     <button @click="toggleSessionsButton">Session</button>
                 </div>
                 <div class="navbar-container-elements-right">
-                    <button>Edit</button>
+                    <button @click="toggleEditButton">Edit</button>
                 </div>
             </div>
         </div>
@@ -21,6 +21,11 @@
         </div>
         <div class="popup-sessions-menu" v-if="isSessionToggleOpen">
             <button @click="toggleSessionsButton">Close</button>
+        </div>
+        <div class="popup-sessions-menu" v-if="isEditToggleOpen">
+            <button @click="toggleEditButton">Exit</button>
+            <br>
+            <input type="text" placeholder="Enter cube color" ref="cubeColor" @change="cubeColorChangeEvent">
         </div>
     </div>
 </template>
@@ -112,18 +117,28 @@
 <script>
 import * as THREE from 'three';
 
+
 export default {
     data() {
         return {
+            material: null,
             isDragging: false,
             previousMousePosition: {
                 x: 0,
                 y: 0
             },
             isSessionToggleOpen: false,
+            isEditToggleOpen: false,
         };
     },
     methods: {
+        cubeColorChangeEvent() {
+                const cubeColor = this.$refs.cubeColor.value;
+                    
+                if (this.cube) {
+                    this.cube.material.color.set(cubeColor);
+                }
+            },
         toggleSessionsButton() {
             this.isSessionToggleOpen = !this.isSessionToggleOpen;
 
@@ -132,7 +147,15 @@ export default {
             } else {
                 this.$refs.background.classList.remove('blur');
             }
-        }
+        },
+        toggleEditButton() {
+            this.isEditToggleOpen =!this.isEditToggleOpen;
+            if (this.isEditToggleOpen) {
+                this.$refs.background.classList.add('blur');
+            } else {
+                this.$refs.background.classList.remove('blur');
+            }
+        },
     },
     mounted() {
         let view = this.$refs.preview_module_view;
@@ -151,10 +174,9 @@ export default {
         })
 
         const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-        const material = new THREE.MeshNormalMaterial();
-
-        const mesh = new THREE.Mesh(geometry, material);
-        scene.add(mesh);
+        const material = new THREE.MeshBasicMaterial({color: 'red'});
+        this.cube = new THREE.Mesh(geometry, material);
+        scene.add(this.cube);
 
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(width, height);
