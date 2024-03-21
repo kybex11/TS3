@@ -1,6 +1,8 @@
 <template>
   <div v-if="loaded">
-    <NuxtPage/>
+      <div>
+          <Editor/>
+      </div>
   </div>
   <div v-else class="loader-container">
     <div class="loader">
@@ -255,5 +257,10 @@ body {
   95%, 100% {
     transform: rotateY(0deg);
   }
+}
+</style>
+<style>
+body {
+    overflow: hidden;
 }
 </style>

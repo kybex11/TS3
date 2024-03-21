@@ -20,71 +20,11 @@
             </div>
         </div>
         <div class="popup-sessions-menu" v-if="isSessionToggleOpen">
-            <button @click="toggleSessionsButton" class="noselect"><span class="text">Close</span><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path></svg></span></button>
+            <button @click="toggleSessionsButton">Close</button>
         </div>
     </div>
 </template>
 <style>
-.popup-sessions-menu button {
-    width: 150px;
-    height: 50px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    background: red;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
-    background: #e62222;
-   }
-   
-   .popup-sessions-menu button, .popup-sessions-menu button span {
-    transition: 200ms;
-   }
-   
-   .popup-sessions-menu button .text {
-    transform: translateX(35px);
-    color: white;
-    font-weight: bold;
-   }
-   
-   .popup-sessions-menu button .icon {
-    position: absolute;
-    border-left: 1px solid #c41b1b;
-    transform: translateX(110px);
-    height: 40px;
-    width: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-   }
-   
-   .popup-sessions-menu button svg {
-    width: 15px;
-    fill: #eee;
-   }
-   
-   .popup-sessions-menu button:hover {
-    background: #ff3636;
-   }
-   
-   .popup-sessions-menu button:hover .text {
-    color: transparent;
-   }
-   
-   .popup-sessions-menu button:hover .icon {
-    width: 150px;
-    border-left: none;
-    transform: translateX(0);
-   }
-   
-   .popup-sessions-menu button:focus {
-    outline: none;
-   }
-   
-   .popup-sessions-menu button:active .icon svg {
-    transform: scale(0.8);
-   }
 .overlay {
     position: fixed;
     top: 0;
@@ -200,6 +140,8 @@ export default {
 
         const camera = new THREE.PerspectiveCamera(70, width / height, 0.01, 10);
         camera.position.z = 1;
+        camera.position.y = 1.5;
+        camera.rotation.z = 50;
 
         const scene = new THREE.Scene();
 
@@ -285,4 +227,5 @@ export default {
         animate();
     }
 }
+
 </script>

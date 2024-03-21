@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  iosvueuikit:
+    specifier: ^1.0.5
+    version: 1.0.5
   nuxt:
     specifier: ^3.10.3
     version: 3.10.3(vite@5.1.6)
@@ -3394,6 +3397,10 @@ packages:
   /ini@4.1.1:
     resolution: {integrity: sha512-QQnnxNyfvmHFIsj7gkPcYymR8Jdw/o7mp5ZFihxn6h8Ci6fh3Dx4E1gPjpQEpIuPo9XVNY/ZUwh4BPMjGyL01g==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+    dev: false
+
+  /iosvueuikit@1.0.5:
+    resolution: {integrity: sha512-gyafsUmgIJdNasY88uYy2ZnAwpjxraFmaLYESIqyhf0dcFYAVch7LOVuhRQyJFarmwE5LW7Kc/kgFvNSpfLY+g==}
     dev: false
 
   /ip-address@9.0.5:
