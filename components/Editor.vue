@@ -133,12 +133,12 @@ export default {
     },
     methods: {
         cubeColorChangeEvent() {
-                const cubeColor = this.$refs.cubeColor.value;
-                    
-                if (this.cube) {
-                    this.cube.material.color.set(cubeColor);
-                }
-            },
+            const cubeColor = this.$refs.cubeColor.value;
+                
+            if (this.cube) {
+                this.cube.material.color.set(cubeColor);
+            }
+        },
         toggleSessionsButton() {
             this.isSessionToggleOpen = !this.isSessionToggleOpen;
 
@@ -162,9 +162,9 @@ export default {
         let width = 900, height = 600;
 
         const camera = new THREE.PerspectiveCamera(70, width / height, 0.01, 10);
-        camera.position.z = 1;
-        camera.position.y = 1.5;
-        camera.rotation.z = 50;
+        camera.position.z = 0;
+        camera.position.x = 0
+        camera.position.y = 0;
 
         const scene = new THREE.Scene();
 
@@ -177,6 +177,12 @@ export default {
         const material = new THREE.MeshBasicMaterial({color: 'red'});
         this.cube = new THREE.Mesh(geometry, material);
         scene.add(this.cube);
+
+        const edges = new THREE.EdgesGeometry(geometry);
+        const lineMaterial = new THREE.LineBasicMaterial({color: 0xffff00, linewidth: 100})
+        const outline = new THREE.LineSegments(edges, lineMaterial);
+        this.cube.add(outline); 
+
 
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(width, height);
