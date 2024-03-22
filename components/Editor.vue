@@ -34,6 +34,16 @@
     </div>
 </template>
 <style>
+.popup-sessions-menu button {
+    user-select: none;
+    border: none;
+    background: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 .overlay {
     position: fixed;
     top: 0;
