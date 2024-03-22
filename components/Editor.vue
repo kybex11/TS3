@@ -23,7 +23,7 @@
             <button @click="toggleSessionsButton">Close</button>
         </div>
         <div class="popup-sessions-menu" v-if="isEditToggleOpen">
-            <button @click="toggleEditButton">Exit</button>
+            <button @click="toggleEditButton">Close</button>
             <br>
             <button @click="toggleColorOpenAndEditClose">Color -></button>
         </div>
