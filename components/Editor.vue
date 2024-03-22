@@ -25,6 +25,10 @@
         <div class="popup-sessions-menu" v-if="isEditToggleOpen">
             <button @click="toggleEditButton">Exit</button>
             <br>
+            <button @click="toggleColorOpenAndEditClose">Color -></button>
+        </div>
+        <div class="popup-sessions-menu" v-if="isColorToggleOpen">
+            <button @click="toggleColorOpen">Exit</button>
             <input type="text" placeholder="Enter cube color" ref="cubeColor" @change="cubeColorChangeEvent">
         </div>
     </div>
@@ -129,6 +133,7 @@ export default {
             },
             isSessionToggleOpen: false,
             isEditToggleOpen: false,
+            isColorToggleOpen: false,
         };
     },
     methods: {
@@ -148,6 +153,24 @@ export default {
                 this.$refs.background.classList.remove('blur');
             }
         },
+        toggleColorOpenAndEditClose() {
+            this.isEditToggleOpen =!this.isEditToggleOpen;
+            this.isColorToggleOpen =!this.isColorToggleOpen;
+            if (this.isColorToggleOpen) {
+                this.$refs.background.classList.add('blur');
+            } else {
+                this.$refs.background.classList.remove('blur');
+            }
+        },
+        toggleColorOpen() {
+            this.isColorToggleOpen = !this.isColorToggleOpen;
+            
+            if (this.isColorToggleOpen) {
+                this.$refs.background.classList.add('blur');
+            } else {
+                this.$refs.background.classList.remove('blur');
+            }
+        },
         toggleEditButton() {
             this.isEditToggleOpen =!this.isEditToggleOpen;
             if (this.isEditToggleOpen) {
@@ -162,9 +185,9 @@ export default {
         let width = 900, height = 600;
 
         const camera = new THREE.PerspectiveCamera(70, width / height, 0.01, 10);
-        camera.position.z = 0;
-        camera.position.x = 0
-        camera.position.y = 0;
+        camera.position.z = 1;
+        camera.position.x = 1;
+        camera.position.y = 1;
 
         const scene = new THREE.Scene();
 
