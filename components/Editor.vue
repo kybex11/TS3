@@ -20,20 +20,27 @@
             </div>
         </div>
         <div class="popup-sessions-menu" v-if="isSessionToggleOpen">
-            <button @click="toggleSessionsButton">Close</button>
+            <button @click="toggleSessionsButton">Close <-</button>
         </div>
         <div class="popup-sessions-menu" v-if="isEditToggleOpen">
-            <button @click="toggleEditButton">Close</button>
+            <button @click="toggleEditButton">Close <-</button>
             <br>
             <button @click="toggleColorOpenAndEditClose">Color -></button>
         </div>
         <div class="popup-sessions-menu" v-if="isColorToggleOpen">
-            <button @click="toggleColorOpen">Exit</button>
+            <button @click="toggleColorOpen">Close <-</button>
+            <br>
             <input type="text" placeholder="Enter cube color" ref="cubeColor" @change="cubeColorChangeEvent">
         </div>
     </div>
 </template>
 <style>
+.popup-sessions-menu input {
+    border: none;
+    color: black;
+    font-size: 1rem;
+}
+
 .popup-sessions-menu button {
     user-select: none;
     border: none;
