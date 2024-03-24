@@ -156,6 +156,35 @@ export default {
         };
     },
     methods: {
+        handleMouseMove(e) {
+            const view = this.$refs.preview_module_view;
+            if (view) {
+                const rect = view.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+
+                if (mouseX < 0 || mouseY < 0 || mouseX > rect.width || mouseY >rect.height) {
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    window.scrollTo(rect.left + centerX, rect.top + centerY);
+                }
+            }
+        },
+        hideCursorAndFocus() {
+            const view = this.$refs.preview_module_view;
+            if (view) {
+                view.style.cursor = 'none';
+                view.setAttribute('tabindex', '-1');
+                view.focus();
+            }
+        },
+        handleDocumentClick() {
+            const view = this.$refs.preview_module_view;
+            if (view && !view.contains(event.target)) {
+                view.style.cursor = '';
+                view.removeAttribute('tabindex');
+            }
+        },
         closeToggleMenus() {
             if (this.isSessionToggleOpen) {
                 this.toggleSessionsButton();
@@ -173,7 +202,6 @@ export default {
         },
         cubeColorChangeEvent() {
             const cubeColor = this.$refs.cubeColor.value;
-                
             if (this.cube) {
                 this.cube.material.color.set(cubeColor);
             }
@@ -214,8 +242,23 @@ export default {
             }
         },
     },
+    beforeDestroy() {
+        const view = this.$refs.preview_module_view;
+        if (view) {
+            view.removeEventListener('mousemove', this.handleMouseMove);
+            view.removeEventListener('click', this.hideCursorAndFocus);
+            view.removeEventListener('mouseenter', this.hideCursorAndFocus);
+        }
+    },
     mounted() {
         let view = this.$refs.preview_module_view;
+        if (view) {
+            view.addEventListener('mousemove', this.handleMouseMove);
+            view.addEventListener('click', this.hideCursorAndFocus);
+            view.addEventListener('mouseenter', this.hideCursorAndFocus);
+        }
+        this.hideCursorAndFocus();
+        document.addEventListener('click', this.handleDocumentClick);
         let width = 900, height = 600;
 
         const camera = new THREE.PerspectiveCamera(70, width / height, 0.01, 10);
@@ -254,7 +297,7 @@ export default {
         };
 
         const onDocumentMouseMove = (event) => {
-            if (this.isDragging) {
+            if (this.isDragging) { 
                 const deltaX = event.clientX - this.previousMousePosition.x;
                 const deltaY = event.clientY - this.previousMousePosition.y;
 
