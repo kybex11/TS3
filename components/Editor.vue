@@ -1,6 +1,6 @@
 <template>
     <div class="firewall_container" ref="background">
-        <div class="overlay" v-if="isSessionToggleOpen || isEditToggleOpen"></div>
+        <div class="overlay" @click="closeToggleMenus" v-if="isSessionToggleOpen || isEditToggleOpen || isColorToggleOpen"></div>
         <div class="navbar-container">
             <div class="navbar-container-elements">
                 <h3>TS3 Editor</h3>
@@ -154,6 +154,15 @@ export default {
         };
     },
     methods: {
+        closeToggleMenus() {
+            if (this.isSessionToggleOpen) {
+                this.toggleSessionsButton();
+            } else if (this.isEditToggleOpen) {
+                this.toggleEditButton();
+            } else if (this.isColorToggleOpen) {
+                this.toggleColorOpen();
+            }
+        },
         cubeColorChangeEvent() {
             const cubeColor = this.$refs.cubeColor.value;
                 
