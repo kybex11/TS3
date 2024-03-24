@@ -31,6 +31,8 @@
             <button @click="toggleColorOpen">Close <-</button>
             <br>
             <input type="text" placeholder="Enter cube color" ref="cubeColor" @change="cubeColorChangeEvent">
+            <br>
+            <input type="text" placeholder="Enter outline color" ref="cubeOutline" @change="cubeOutlineChangeEvent">
         </div>
     </div>
 </template>
@@ -163,6 +165,12 @@ export default {
                 this.toggleColorOpen();
             }
         },
+        cubeOutlineChangeEvent() {
+            const cubeOutline = this.$refs.cubeOutline.value;
+            if(this.cube) {
+                this.cube.children[0].material.color.set(cubeOutline);
+            }
+        },
         cubeColorChangeEvent() {
             const cubeColor = this.$refs.cubeColor.value;
                 
@@ -228,7 +236,7 @@ export default {
         scene.add(this.cube);
 
         const edges = new THREE.EdgesGeometry(geometry);
-        const lineMaterial = new THREE.LineBasicMaterial({color: 0xffff00, linewidth: 100})
+        const lineMaterial = new THREE.LineBasicMaterial({color: 'black', linewidth: 100})
         const outline = new THREE.LineSegments(edges, lineMaterial);
         this.cube.add(outline); 
 
