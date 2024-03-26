@@ -27,6 +27,7 @@
             <br>
             <button @click="toggleColorOpenAndEditClose">Color -></button>
         </div>
+        
         <div class="popup-sessions-menu" v-if="isColorToggleOpen">
             <button @click="toggleColorOpen">Close <-</button>
             <br>
@@ -259,7 +260,7 @@ export default {
         }
         this.hideCursorAndFocus();
         document.addEventListener('click', this.handleDocumentClick);
-        let width = 900, height = 600;
+        let width = window.innerWidth - 600, height = window.innerHeight - 200;
 
         const camera = new THREE.PerspectiveCamera(70, width / height, 0.01, 10);
         camera.position.z = 1;
