@@ -318,25 +318,44 @@ export default {
         };
 
         const onDocumentKeyDown = (e) => {
-            if (e.key === "W" || e.key === "w" || e.key === "ц" || e.key === "Ц") {
-                camera.position.z -= 0.1;
+            const movementSpeed = 0.1;
+            switch (e.key) {
+                case "W":
+                case "w":
+                case "ц":
+                case "Ц":
+                    camera.position.z -= movementSpeed;
+                    break;
+                case "S":
+                case "s":
+                case "ы":
+                case "Ы":
+                    camera.position.z += movementSpeed;
+                    break;
+                case "A":
+                case "a":
+                case "ф":
+                case "Ф":
+                    camera.position.x -= movementSpeed;
+                    break;
+                case "D":
+                case "d":
+                case "в":
+                case "В":
+                    camera.position.x += movementSpeed;
+                    break;
+                case " ":
+                    camera.position.y += movementSpeed;
+                    break;
+                case "Shift":
+                    camera.position.y -= movementSpeed;
+                    break;
+                default:
+                    return;
             }
-            if (e.key === "S" || e.key === "s" || e.key === "ы" || e.key === "ы") {
-                camera.position.z += 0.1;
-            }
-            if (e.key === "A" || e.key === "a" || e.key === "ф" || e.key === "ф") {
-                camera.position.x -= 0.1;
-            }
-            if (e.key === "D" || e.key === "d" || e.key === "в" || e.key === "в") {
-                camera.position.x += 0.1;
-            }
-            if (e.key === " ") {
-                camera.position.y += 0.1;
-            }
-            if (e.key === "Shift") {
-                camera.position.y -= 0.1;
-            }
-        }
+            renderer.render(scene, camera);
+            e.preventDefault(); // Prevent default key behavior to ensure immediate response
+}   
 
         if (view instanceof HTMLElement) {
             view.addEventListener('keydown', onDocumentKeyDown, false);
