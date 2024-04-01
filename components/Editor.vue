@@ -14,6 +14,9 @@
         </div>
         <div class="container">
             <div class="elements-container">
+                <h2>Movement Speed</h2>
+                <br>
+                <h4>{{movementSpeed}}</h4>
             </div>
             <div class="preview-container">
                 <div class="preview-module-view" ref="preview_module_view" tabindex="0"></div>
@@ -147,6 +150,7 @@ export default {
         return {
             material: null,
             isDragging: false,
+            movementSpeed: '',
             previousMousePosition: {
                 x: 0,
                 y: 0
@@ -303,8 +307,8 @@ export default {
                 const deltaY = event.clientY - this.previousMousePosition.y;
 
                 const rotationSpeed = 0.005;
-                camera.rotation.y += deltaX * rotationSpeed;
-                camera.rotation.x += deltaY * rotationSpeed;
+                camera.rotation.y -= deltaX * rotationSpeed;
+                camera.rotation.x -= deltaY * rotationSpeed;
 
                 this.previousMousePosition.x = event.clientX;
                 this.previousMousePosition.y = event.clientY;
@@ -318,37 +322,54 @@ export default {
         };
 
         const onDocumentKeyDown = (e) => {
-            const movementSpeed = 0.1;
+            const movementSpeedUp = () => {
+                setTimeout(() => {
+                        this.movementSpeed += 0.1;
+                        movementSpeedUp();
+                }, 100);
+            }
             switch (e.key) {
                 case "W":
                 case "w":
                 case "ц":
                 case "Ц":
-                    camera.position.z -= movementSpeed;
+                    this.movementSpeed = 0.1;
+                    camera.position.z -= this.movementSpeed;
+                    movementSpeedUp()
                     break;
                 case "S":
                 case "s":
                 case "ы":
                 case "Ы":
-                    camera.position.z += movementSpeed;
+                    this.movementSpeed = 0.1;
+                    camera.position.z += this.movementSpeed;
+                    movementSpeedUp()
                     break;
                 case "A":
                 case "a":
                 case "ф":
                 case "Ф":
-                    camera.position.x -= movementSpeed;
+                    this.movementSpeed = 0.1;
+                    camera.position.x -= this.movementSpeed;
+                    movementSpeedUp()
                     break;
                 case "D":
                 case "d":
                 case "в":
                 case "В":
-                    camera.position.x += movementSpeed;
+                    this.movementSpeed = 0.1;
+                    camera.position.x += this.movementSpeed;
+                    movementSpeedUp()
                     break;
                 case " ":
-                    camera.position.y += movementSpeed;
+                    this.movementSpeed = 0.1;
+                    camera.position.y += this.movementSpeed;
+                    movementSpeedUp()
                     break;
                 case "Shift":
-                    camera.position.y -= movementSpeed;
+                    this.movementSpeed = 0.1;
+                    camera.position.y -= this.movementSpeed;
+                    movementSpeedUp()
                     break;
                 default:
                     return;
