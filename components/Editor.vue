@@ -30,7 +30,7 @@
             <br>
             <button @click="toggleColorOpenAndEditClose">Color -></button>
         </div>
-        
+
         <div class="popup-sessions-menu" v-if="isColorToggleOpen">
             <button @click="toggleColorOpen">Close <-</button>
             <br>
@@ -231,7 +231,7 @@ export default {
         },
         toggleColorOpen() {
             this.isColorToggleOpen = !this.isColorToggleOpen;
-            
+
             if (this.isColorToggleOpen) {
                 this.$refs.background.classList.add('blur');
             } else {
@@ -286,7 +286,7 @@ export default {
         const edges = new THREE.EdgesGeometry(geometry);
         const lineMaterial = new THREE.LineBasicMaterial({color: 'black', linewidth: 100})
         const outline = new THREE.LineSegments(edges, lineMaterial);
-        this.cube.add(outline); 
+        this.cube.add(outline);
 
 
         const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -302,7 +302,7 @@ export default {
         };
 
         const onDocumentMouseMove = (event) => {
-            if (this.isDragging) { 
+            if (this.isDragging) {
                 const deltaX = event.clientX - this.previousMousePosition.x;
                 const deltaY = event.clientY - this.previousMousePosition.y;
 
@@ -376,7 +376,7 @@ export default {
             }
             renderer.render(scene, camera);
             e.preventDefault(); // Prevent default key behavior to ensure immediate response
-}   
+}
 
         if (view instanceof HTMLElement) {
             view.addEventListener('keydown', onDocumentKeyDown, false);
