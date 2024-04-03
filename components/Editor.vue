@@ -328,6 +328,9 @@ export default {
                         movementSpeedUp();
                 }, 100);
             }
+            const stopMovementSpeedUP = () => {
+                clearInterval(100);
+            }
             switch (e.key) {
                 case "W":
                 case "w":
@@ -375,7 +378,8 @@ export default {
                     return;
             }
             renderer.render(scene, camera);
-            e.preventDefault(); // Prevent default key behavior to ensure immediate response
+            document.addEventListener('keyup', stopMovementSpeedUP);
+            e.preventDefault();
 }
 
         if (view instanceof HTMLElement) {
